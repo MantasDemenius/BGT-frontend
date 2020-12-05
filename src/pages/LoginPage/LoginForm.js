@@ -1,24 +1,31 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { setToken, setUser } from '../../helper/UserService';
+import { postNoTokenRequest } from '../../helper/ApiRequests';
 
 const LoginForm = () => (
   <Formik
-    initialValues={{ email: '', password: '' }}
+    initialValues={{ username: '', password: '' }}
     validationSchema={Yup.object().shape({
-      email: Yup.string().email().required('Required'),
+      username: Yup.string().required('Required'),
       password: Yup.string()
-        .required('No password provided.')
-        .min(8, 'Password is too short - should be 8 chars minimum.')
-        .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
+        .required('No password provided.'),
+      // .min(8, 'Password is too short - should be 8 chars minimum.')
+      // .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
     })}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log('Logging in', values);
+    onSubmit={async (values, { setSubmitting }) => {
+      const response = await postNoTokenRequest('/authenticate', values);
+      if (response) {
+        setToken(response.data.token);
+        setUser();
+        console.log('token set');
         setSubmitting(false);
-      }, 500);
+        window.location.href = '/';
+      }
     }}
   >
+    {/* https://www.youtube.com/watch?v=25GS0MLT8JU&feature=emb_logo&ab_channel=BenAwad */}
     {(props) => {
       const {
         values,
@@ -31,23 +38,23 @@ const LoginForm = () => (
       } = props;
 
       return (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">
-            Email
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor="username">
+            username
             <input
               type="text"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={values.email}
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={errors.email && touched.email && 'error'}
+              className={errors.username && touched.username && 'error'}
             />
           </label>
 
-          {errors.email && touched.email && (
-            <div className="input-feedback">{errors.email}</div>
+          {errors.username && touched.username && (
+            <div className="input-feedback">{errors.username}</div>
           )}
           <label htmlFor="password">
             Password
@@ -72,7 +79,7 @@ const LoginForm = () => (
             Login
           </button>
 
-        </form>
+        </Form>
       );
     }}
   </Formik>

@@ -2,7 +2,6 @@
   "name": "bgt-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "homepage": "http://MantasDemenius.github.io/BGT-frontend",
   "dependencies": {
     "@material-ui/core": "4.11.1",
@@ -10,6 +9,7 @@
     "@testing-library/react": "11.2.2",
     "@testing-library/user-event": "12.2.2",
     "formik": "2.2.5",
+    "jwt-decode": "^3.1.2",
     "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",

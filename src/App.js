@@ -1,12 +1,21 @@
-import React from 'react';
-import LoginForm from './components/login/LoginForm';
+import React, { useState, useEffect } from 'react';
+import Routes from './Routes';
+import { setUser } from './helper/UserService';
 
-function App() {
+const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setUser();
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
   return (
-    <div className="App">
-      <LoginForm />
-    </div>
+    <Routes />
   );
-}
+};
 
 export default App;
