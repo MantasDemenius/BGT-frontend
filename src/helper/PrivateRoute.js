@@ -12,7 +12,7 @@ const PrivateRoute = ({
       if (!user.loggedIn) {
         return <Redirect to={{ pathname: '/' }} />;
       }
-      if (user.roles.split(',').some((r) => roles.indexOf(r) >= 0)) {
+      if (!user.roles.split(',').some((r) => roles.indexOf(r) >= 0)) {
         return <Redirect to={{ pathname: '/' }} />;
       }
       return <Component {...props} />;

@@ -32,7 +32,7 @@ async function sendRequest(path, method, data) {
   }
 }
 
-export async function sendNoTokenRequest(path, method, data) {
+async function sendNoTokenRequest(path, method, data) {
   try {
     const req = new Request(API_ROOT + path, {
       method,
@@ -42,7 +42,15 @@ export async function sendNoTokenRequest(path, method, data) {
       },
     });
     const response = await fetch(req);
-    return { data: await response.json() };
+    if (response.ok) {
+      try {
+        return { status: RESPONSE_STATUS.OK, data: await response.json() };
+      } catch (d) {
+        return { status: RESPONSE_STATUS.OK };
+      }
+    } else {
+      return { status: RESPONSE_STATUS.BAD_RESPONSE };
+    }
   } catch (e) {
     return { status: RESPONSE_STATUS.NO_CONNECTION };
   }
