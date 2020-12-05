@@ -9,6 +9,7 @@ import LogoutButton from './components/LogoutButton';
 import PrivateRoute from './helper/PrivateRoute';
 import UserList from './pages/Admin/UsersPage/UserList';
 import Role from './helper/Role';
+import HomePage from './pages/HomePage/HomePage';
 
 const Routes = () => {
   const [user] = useState(getUser());
@@ -40,7 +41,7 @@ const Routes = () => {
       )}
       <LogoutButton />
       <Switch>
-        <Route exact path="/" render={() => <div>Hello my main page</div>} />
+        <Route exact path="/" render={HomePage} />
         <Route path="/login" render={LoginForm} />
         <Route path="/register" render={RegisterForm} />
         <PrivateRoute exact path="/users" component={UserList} user={user} roles={[Role.Admin]} />
