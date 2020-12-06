@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as routerLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  AppBar, CssBaseline, Toolbar, Typography, Button, makeStyles,
+  AppBar, CssBaseline, Toolbar, Typography, Button, makeStyles, Link,
 } from '@material-ui/core';
 import { removeUser } from '../helper/UserService';
 
@@ -62,35 +62,36 @@ const NavBar = ({ user }) => {
   return (
     <>
       <CssBaseline />
-      {/* <AppBar position="static" color="default" elevation={0}> */}
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar>
-          {/* <Toolbar className={classes.toolbar}> */}
-          {/* <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}> */}
-          <Typography variant="h6" color="inherit" noWrap>
-            <Link to="/" color="inherit" variant="inherit" underline="none">
+        <Toolbar className={classes.toolbar}>
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+            <Link component={routerLink} to="/" color="inherit" variant="inherit" underline="none">
               BGT
             </Link>
           </Typography>
           <nav>
-            {/* <Link variant="button" color="textPrimary" href="#" className={classes.link}> */}
-            <Link variant="button" color="textPrimary" to="/">
+            <Link variant="button" color="textPrimary" component={routerLink} to="/" className={classes.link}>
               Home
             </Link>
+            <Link variant="button" color="textPrimary" component={routerLink} to="/register" className={classes.link}>
+              register
+            </Link>
+            {/* <Link variant="button" color="textPrimary" className={classes.link}>
+              {user.name}
+            </Link> */}
             {/* {!user.loggedIn && (
           <Link variant="button" color="textPrimary" href="/">
             Login
           </Link>
           )} */}
           </nav>
-          {/* <Button href="#" color="primary" variant="outlined" className={classes.link}> */}
           {!user.loggedIn && (
-            <Button href="/BGT-frontend/login" color="primary" variant="outlined">
+            <Button component={routerLink} to="/login" color="primary" variant="outlined" className={classes.link}>
               Login
             </Button>
           )}
           {user.loggedIn && (
-            <Button color="primary" variant="outlined" onClick={logout}>
+            <Button onClick={logout} color="primary" variant="outlined" className={classes.link}>
               Logout
             </Button>
           )}

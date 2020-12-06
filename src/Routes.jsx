@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Switch, Route,
 } from 'react-router-dom';
@@ -13,15 +13,23 @@ import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer';
 
 const Routes = () => {
-  const [user] = useState(getUser());
+  const [user, setUser] = useState({
+    name: '',
+    roles: '',
+    loggedIn: false,
+  });
+
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
   return (
     <BrowserRouter basename="/BGT-frontend">
       <NavBar user={user} />
       <Switch>
-        <Route exact path="/" render={HomePage} />
-        <Route path="/login" render={LoginForm} />
-        <Route path="/register" render={RegisterForm} />
+        <Route exact path="/" component={HomePage} />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/register" component={RegisterForm} />
         <PrivateRoute exact path="/users" component={UserList} user={user} roles={[Role.Admin]} />
       </Switch>
       <Footer />
