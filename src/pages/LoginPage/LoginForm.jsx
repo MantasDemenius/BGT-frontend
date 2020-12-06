@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
-import { setToken, setUser, getUser } from '../../helper/UserService';
+import { setToken, setUser } from '../../helper/UserService';
 import { postNoTokenRequest } from '../../helper/ApiRequests';
 
 const StyledDiv = styled.div`
@@ -62,9 +62,8 @@ const LoginForm = () => {
         if (response.status === 'OK') {
           setToken(response.data.token);
           setUser();
-          const user = getUser();
           setSubmitting(false);
-          history.push('/', { user });
+          history.push('/');
           history.go(0);
         } else {
           setFieldError('errors', 'Username or password is incorrect!');

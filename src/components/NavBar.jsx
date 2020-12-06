@@ -70,12 +70,26 @@ const NavBar = ({ user }) => {
             </Link>
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" component={routerLink} to="/" className={classes.link}>
+            {user.name}
+            {' '}
+            {user.roles}
+            {' '}
+            {String(user.loggedIn)}
+            {/* <Link variant="button" color="textPrimary" component={routerLink} to="/"
+            className={classes.link}>
               Home
+            </Link> */}
+            {(user.roles.includes('CREATOR') || user.roles.includes('ADMIN')) && (
+            <Link
+              variant="button"
+              color="textPrimary"
+              component={routerLink}
+              to="/games/add"
+              className={classes.link}
+            >
+              Add game
             </Link>
-            <Link variant="button" color="textPrimary" component={routerLink} to="/register" className={classes.link}>
-              register
-            </Link>
+            )}
             {/* <Link variant="button" color="textPrimary" className={classes.link}>
               {user.name}
             </Link> */}
