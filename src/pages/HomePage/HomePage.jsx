@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, CardActions, Grid, Typography, makeStyles, Container, Grow,
+  CardActions, Grid, Typography, makeStyles, Container, Grow,
 } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -54,7 +54,7 @@ const HomePage = () => {
     <>
       <CssBaseline />
       <main>
-        <div className={classes.heroContent}>
+        {/* <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Album layout
@@ -80,7 +80,7 @@ const HomePage = () => {
               </Grid>
             </div>
           </Container>
-        </div>
+        </div> */}
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {originalGames.map((game) => (

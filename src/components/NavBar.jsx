@@ -62,7 +62,7 @@ const NavBar = ({ user }) => {
   return (
     <>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <AppBar position="static" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
             <Link component={routerLink} to="/" color="inherit" variant="inherit" underline="none">
@@ -82,7 +82,7 @@ const NavBar = ({ user }) => {
             {(user.roles.includes('CREATOR') || user.roles.includes('ADMIN')) && (
             <Link
               variant="button"
-              color="textPrimary"
+              color="inherit"
               component={routerLink}
               to="/games/add"
               className={classes.link}
@@ -100,12 +100,12 @@ const NavBar = ({ user }) => {
           )} */}
           </nav>
           {!user.loggedIn && (
-            <Button component={routerLink} to="/login" color="primary" variant="outlined" className={classes.link}>
+            <Button component={routerLink} to="/login" color="inherit" variant="outlined" className={classes.link}>
               Login
             </Button>
           )}
           {user.loggedIn && (
-            <Button onClick={logout} color="primary" variant="outlined" className={classes.link}>
+            <Button onClick={logout} color="inherit" variant="outlined" className={classes.link}>
               Logout
             </Button>
           )}

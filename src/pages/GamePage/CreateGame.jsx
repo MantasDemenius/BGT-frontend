@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0),
     minWidth: 120,
   },
+  textField: {
+    background: 'white',
+    WebkitBoxShadow: '0 0 0 1000px white inset',
+  },
 }));
 
 const CreateGame = () => {
@@ -117,6 +121,8 @@ const CreateGame = () => {
                 value={values.title}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                inputProps={{ className: classes.textField }}
+                className={classes.textField}
               />
               <ErrorMessage component={StyledErrorDiv} name="title" />
               <TextField
@@ -130,6 +136,8 @@ const CreateGame = () => {
                 margin="normal"
                 fullWidth
                 placeholder="Enter game description"
+                className={classes.textField}
+                inputProps={{ className: classes.textField }}
                 value={values.description}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -143,6 +151,8 @@ const CreateGame = () => {
                   name="language"
                   label="Language"
                   labelId="select-language-label"
+                  className={classes.textField}
+                  inputProps={{ className: classes.textField }}
                   value={values.language}
                   onChange={handleChange}
                   onBlur={handleBlur}

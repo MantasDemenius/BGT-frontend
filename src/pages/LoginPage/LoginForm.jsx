@@ -18,8 +18,16 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core';
 import { setToken, setUser } from '../../helper/UserService';
 import { postNoTokenRequest } from '../../helper/ApiRequests';
+
+const useStyles = makeStyles(() => ({
+  textField: {
+    background: 'white',
+    WebkitBoxShadow: '0 0 0 1000px white inset',
+  },
+}));
 
 const StyledDiv = styled.div`
   margin-top: 64px;
@@ -31,6 +39,11 @@ const StyledDiv = styled.div`
 const StyledAvatar = styled(Avatar)`
   margin: 8px;
   background-color: red;
+`;
+
+const StyledTextfield = styled(TextField)`
+  background: white;
+  background-color: white;
 `;
 
 const StyledForm = styled(Form)`
@@ -47,6 +60,8 @@ const StyledErrorDiv = styled.div`
 
 const LoginForm = () => {
   const history = useHistory();
+  const classes = useStyles();
+
   return (
     <Formik
       initialValues={{ username: '', password: '', errors: '' }}
@@ -86,7 +101,9 @@ const LoginForm = () => {
               <StyledAvatar>
                 <LockOutlinedIcon />
               </StyledAvatar>
-              <Typography component="h1" variant="h5" />
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
               <StyledForm onSubmit={handleSubmit}>
                 <TextField
                   id="errors"
@@ -95,7 +112,7 @@ const LoginForm = () => {
                   type="hidden"
                 />
                 <ErrorMessage component={StyledErrorDiv} name="errors" />
-                <TextField
+                <StyledTextfield
                   type="text"
                   id="username"
                   name="username"
@@ -105,12 +122,13 @@ const LoginForm = () => {
                   fullWidth
                   placeholder="Enter your username"
                   autoFocus
+                  inputProps={{ className: classes.textField }}
                   value={values.username}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
                 <ErrorMessage component={StyledErrorDiv} name="username" />
-                <TextField
+                <StyledTextfield
                   id="password"
                   name="password"
                   type="password"
@@ -120,6 +138,7 @@ const LoginForm = () => {
                   fullWidth
                   label="Password"
                   autoComplete="current-password"
+                  inputProps={{ className: classes.textField }}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -127,6 +146,7 @@ const LoginForm = () => {
                 <ErrorMessage component={StyledErrorDiv} name="password" />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
+                  inputProps={{ className: classes.textField }}
                   label="Remember me"
                 />
                 <StyledSubmitButton
