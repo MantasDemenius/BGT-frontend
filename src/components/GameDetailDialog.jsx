@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-const GameDetailDialog = ({ item }) => {
+const GameDetailDialog = ({ item, handleDeleteGame }) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -48,13 +48,13 @@ const GameDetailDialog = ({ item }) => {
           <DialogContentText>
             Language:
             {' '}
-            {item.languageId}
+            {item.language}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {/* <Button autoFocus onClick={handleClose} color="primary">
-            Disagree
-          </Button> */}
+          <Button onClick={() => { handleDeleteGame(item.id); handleClose(); }} color="secondary">
+            Delete
+          </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>
@@ -66,11 +66,13 @@ const GameDetailDialog = ({ item }) => {
 
 GameDetailDialog.propTypes = {
   item: PropTypes.shape({
+    id: PropTypes.number,
     author: PropTypes.string,
     description: PropTypes.string,
-    languageId: PropTypes.number,
+    language: PropTypes.string,
     title: PropTypes.string,
   }).isRequired,
+  handleDeleteGame: PropTypes.func.isRequired,
 };
 
 export default GameDetailDialog;

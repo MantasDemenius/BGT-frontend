@@ -6,7 +6,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { Form, Formik, ErrorMessage } from 'formik';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import { getNoTokenRequest, postRequest } from '../../helper/ApiRequests';
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateGame = () => {
-//   const history = useHistory();
+  const history = useHistory();
   const classes = useStyles();
   const [languages, setLanguages] = useState([]);
 
@@ -52,7 +52,6 @@ const CreateGame = () => {
     async function fetchLanguages() {
       const response = await getNoTokenRequest('/languages');
       setLanguages(response.data);
-      console.log(response.data);
     }
     fetchLanguages();
   }, []);
@@ -66,7 +65,6 @@ const CreateGame = () => {
           .required('Description is required')
           .min(5, 'Description is too short - should be 5 characters minimum')
           .max(255, 'Description is too long - should be 255 characters maximum'),
-        language: Yup.string().required('Language is required'),
       })}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
         const user = getUser();
@@ -76,18 +74,15 @@ const CreateGame = () => {
           languageId: values.language,
           originalGameId: 0,
           author: user.name,
-          userId: 10,
+          userId: user.id,
         };
 
         const response = await postRequest('/games', request);
         if (response.status === 'OK') {
           setSubmitting(false);
-        //   history.push('/');
-        //   history.go(0);
+          history.push('/');
         } else {
-          console.log(response);
-          //   setFieldError('errors', 'Username or password is incorrect!');
-          setFieldError('title', 'error');
+          setFieldError('title', 'This game already exists');
         }
       }}
     >
@@ -156,6 +151,7 @@ const CreateGame = () => {
                   value={values.language}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  required
                 >
                   {languages.map((language) => (
                     <MenuItem key={language.id} value={language.id}>{language.name}</MenuItem>

@@ -70,11 +70,11 @@ const NavBar = ({ user }) => {
             </Link>
           </Typography>
           <nav>
-            {user.name}
+            {/* {user.name}
             {' '}
             {user.roles}
             {' '}
-            {String(user.loggedIn)}
+            {String(user.loggedIn)} */}
             {/* <Link variant="button" color="textPrimary" component={routerLink} to="/"
             className={classes.link}>
               Home

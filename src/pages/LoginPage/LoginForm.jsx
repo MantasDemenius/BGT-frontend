@@ -41,11 +41,6 @@ const StyledAvatar = styled(Avatar)`
   background-color: red;
 `;
 
-const StyledTextfield = styled(TextField)`
-  background: white;
-  background-color: white;
-`;
-
 const StyledForm = styled(Form)`
   width: 100%;
   margin-top: 10px;
@@ -112,7 +107,7 @@ const LoginForm = () => {
                   type="hidden"
                 />
                 <ErrorMessage component={StyledErrorDiv} name="errors" />
-                <StyledTextfield
+                <TextField
                   type="text"
                   id="username"
                   name="username"
@@ -128,7 +123,7 @@ const LoginForm = () => {
                   onBlur={handleBlur}
                 />
                 <ErrorMessage component={StyledErrorDiv} name="username" />
-                <StyledTextfield
+                <TextField
                   id="password"
                   name="password"
                   type="password"
@@ -146,7 +141,6 @@ const LoginForm = () => {
                 <ErrorMessage component={StyledErrorDiv} name="password" />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
-                  inputProps={{ className: classes.textField }}
                   label="Remember me"
                 />
                 <StyledSubmitButton

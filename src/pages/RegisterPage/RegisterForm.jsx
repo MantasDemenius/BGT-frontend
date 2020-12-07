@@ -28,9 +28,6 @@ const RegisterForm = () => (
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm Password is required'),
     })}
-    onSubmit={(fields) => {
-      console.log(`SUCCESS!! :-)\n\n${JSON.stringify(fields, null, 4)}`);
-    }}
   >
     {(props) => {
       const {

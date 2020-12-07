@@ -31,7 +31,6 @@ const Routes = () => {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginForm} />
         <Route path="/register" component={RegisterForm} />
-        {/* <Route path="/games/create" component={CreateGame} /> */}
         <PrivateRoute
           path="/games/add"
           component={CreateGame}

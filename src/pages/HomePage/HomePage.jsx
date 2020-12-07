@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  CardActions, Grid, Typography, makeStyles, Container, Grow,
+  CardActions, Grid, Typography, makeStyles, Container, Grow, Snackbar,
 } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { getNoTokenRequest } from '../../helper/ApiRequests';
+import { getNoTokenRequest, deleteRequest } from '../../helper/ApiRequests';
 import GameDetailDialog from '../../components/GameDetailDialog';
+import removeItemFromArrayById from '../../helper/HelperFunctions';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -40,15 +41,36 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = () => {
   const classes = useStyles();
   const [originalGames, setOriginalGames] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchOriginalGames() {
       const response = await getNoTokenRequest('/games/original');
       setOriginalGames(response.data);
-      console.log(response.data);
     }
-    fetchData();
+    fetchOriginalGames();
   }, []);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSnackbarOpen = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleDeleteGame = (id) => {
+    async function fetchDeleteGame() {
+      const response = await deleteRequest(`/games/${id}`);
+      if (response.status === 'OK') {
+        setOriginalGames(removeItemFromArrayById(originalGames, id));
+        handleSnackbarOpen('Game was successfully deleted');
+      }
+    }
+    fetchDeleteGame();
+  };
 
   return (
     <>
@@ -82,6 +104,13 @@ const HomePage = () => {
           </Container>
         </div> */}
         <Container className={classes.cardGrid} maxWidth="md">
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            autoHideDuration={6000}
+            open={snackbarOpen}
+            onClose={handleSnackbarClose}
+            message={snackbarMessage}
+          />
           <Grid container spacing={4}>
             {originalGames.map((game) => (
               <Grow
@@ -102,11 +131,11 @@ const HomePage = () => {
                         {game.title}
                       </Typography>
                       <Typography>
-                        {game.description}
+                        {game.description.slice(0, 70)}
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <GameDetailDialog item={game} />
+                      <GameDetailDialog item={game} handleDeleteGame={handleDeleteGame} />
                       {/* <Button size="small" color="primary">
                         View
                       </Button>
