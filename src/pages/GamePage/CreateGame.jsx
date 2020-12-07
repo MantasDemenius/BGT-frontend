@@ -60,11 +60,14 @@ const CreateGame = () => {
     <Formik
       initialValues={{ title: '', description: '', language: '' }}
       validationSchema={Yup.object().shape({
-        title: Yup.string().required('Title is required'),
+        title: Yup.string()
+          .required('Title is required')
+          .min(3, 'Title is too short - should be 3 characters minimum')
+          .max(100, 'Title is too long - should be 2000 characters maximum'),
         description: Yup.string()
           .required('Description is required')
-          .min(5, 'Description is too short - should be 5 characters minimum')
-          .max(255, 'Description is too long - should be 255 characters maximum'),
+          .min(3, 'Description is too short - should be 3 characters minimum')
+          .max(2000, 'Description is too long - should be 2000 characters maximum'),
       })}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
         const user = getUser();
@@ -83,7 +86,7 @@ const CreateGame = () => {
           setSubmitting(false);
           history.push('/');
         } else {
-          setFieldError('title', 'This game already exists');
+          setFieldError('title', 'Server error');
         }
       }}
     >
