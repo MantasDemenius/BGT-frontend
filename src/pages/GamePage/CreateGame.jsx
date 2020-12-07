@@ -9,7 +9,7 @@ import { Form, Formik, ErrorMessage } from 'formik';
 import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { getNoTokenRequest, postRequest } from '../../helper/ApiRequests';
+import { getNoTokenRequest, postRequest, getRequest } from '../../helper/ApiRequests';
 import { getUser } from '../../helper/UserService';
 
 const StyledErrorDiv = styled.div`
@@ -68,13 +68,15 @@ const CreateGame = () => {
       })}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
         const user = getUser();
+        const responseId = await getRequest(`/users/${user.name}/id`);
+        console.log(user);
         const request = {
           title: values.title,
           description: values.description,
           languageId: values.language,
           originalGameId: 0,
           author: user.name,
-          userId: user.id,
+          userId: responseId.data.id,
         };
 
         const response = await postRequest('/games', request);
