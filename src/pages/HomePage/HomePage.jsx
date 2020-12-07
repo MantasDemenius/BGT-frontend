@@ -144,7 +144,7 @@ const HomePage = () => {
                     />
                     <CardContent className={classes.cardContent}>
                       <Typography gutterBottom variant="h5" component="h2">
-                        {game.title}
+                        {game.title.slice(0, 20)}
                       </Typography>
                       <Typography>
                         {game.description.slice(0, 70)}
