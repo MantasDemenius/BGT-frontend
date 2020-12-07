@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  CardActions, Grid, Typography, makeStyles, Container, Grow, Snackbar,
+  CardActions, Grid, Typography, makeStyles, Container, Grow, Snackbar, CircularProgress,
 } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  loading: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
 }));
 
 const HomePage = () => {
@@ -53,7 +59,11 @@ const HomePage = () => {
   }, []);
 
   if (!originalGames) {
-    return <div>Loading...</div>;
+    return (
+      <div className={classes.loading}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   const handleSnackbarClose = () => {
