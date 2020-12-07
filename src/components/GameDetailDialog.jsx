@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,11 +8,21 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { getUser } from '../helper/UserService';
 
 const GameDetailDialog = ({ item, handleDeleteGame }) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [user, setUser] = useState({
+    name: '',
+    roles: '',
+    loggedIn: false,
+  });
+
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,9 +62,11 @@ const GameDetailDialog = ({ item, handleDeleteGame }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          {(user.roles.includes('CREATOR') || user.roles.includes('ADMIN')) && (
           <Button onClick={() => { handleDeleteGame(item.id); handleClose(); }} color="secondary">
             Delete
           </Button>
+          )}
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>

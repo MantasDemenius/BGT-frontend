@@ -69,7 +69,6 @@ const CreateGame = () => {
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
         const user = getUser();
         const responseId = await getRequest(`/users/${user.name}/id`);
-        console.log(user);
         const request = {
           title: values.title,
           description: values.description,

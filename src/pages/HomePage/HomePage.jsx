@@ -81,6 +81,8 @@ const HomePage = () => {
       if (response.status === 'OK') {
         setOriginalGames(removeItemFromArrayById(originalGames, id));
         handleSnackbarOpen('Game was successfully deleted');
+      } else {
+        handleSnackbarOpen('This game has translations, please delete the translations first!');
       }
     }
     fetchDeleteGame();
