@@ -52,6 +52,10 @@ const HomePage = () => {
     fetchOriginalGames();
   }, []);
 
+  if (!originalGames) {
+    return <div>Loading...</div>;
+  }
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
