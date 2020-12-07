@@ -86,7 +86,6 @@ const LoginForm = () => {
           values,
           isSubmitting,
           handleChange,
-          handleBlur,
           handleSubmit,
         } = props;
         return (
@@ -120,7 +119,6 @@ const LoginForm = () => {
                   inputProps={{ className: classes.textField }}
                   value={values.username}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                 />
                 <ErrorMessage component={StyledErrorDiv} name="username" />
                 <TextField
@@ -136,7 +134,6 @@ const LoginForm = () => {
                   inputProps={{ className: classes.textField }}
                   value={values.password}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                 />
                 <ErrorMessage component={StyledErrorDiv} name="password" />
                 <FormControlLabel

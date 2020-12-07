@@ -63,11 +63,12 @@ const CreateGame = () => {
         title: Yup.string()
           .required('Title is required')
           .min(3, 'Title is too short - should be 3 characters minimum')
-          .max(100, 'Title is too long - should be 2000 characters maximum'),
+          .max(100, 'Title is too long - should be 100 characters maximum'),
         description: Yup.string()
           .required('Description is required')
           .min(3, 'Description is too short - should be 3 characters minimum')
           .max(2000, 'Description is too long - should be 2000 characters maximum'),
+        language: Yup.string().required('Language is required'),
       })}
       onSubmit={async (values, { setSubmitting, setFieldError }) => {
         const user = getUser();
@@ -95,7 +96,6 @@ const CreateGame = () => {
           values,
           isSubmitting,
           handleChange,
-          handleBlur,
           handleSubmit,
         } = props;
         return (
@@ -119,7 +119,6 @@ const CreateGame = () => {
                 autoFocus
                 value={values.title}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 inputProps={{ className: classes.textField }}
                 className={classes.textField}
               />
@@ -139,7 +138,6 @@ const CreateGame = () => {
                 inputProps={{ className: classes.textField }}
                 value={values.description}
                 onChange={handleChange}
-                onBlur={handleBlur}
               />
               <ErrorMessage component={StyledErrorDiv} name="description" />
               {/* https://material-ui.com/components/autocomplete */}
@@ -154,14 +152,13 @@ const CreateGame = () => {
                   inputProps={{ className: classes.textField }}
                   value={values.language}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
                 >
                   {languages.map((language) => (
                     <MenuItem key={language.id} value={language.id}>{language.name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
+              <ErrorMessage component={StyledErrorDiv} name="language" />
               <Button
                 type="submit"
                 fullWidth
