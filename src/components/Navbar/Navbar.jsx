@@ -24,6 +24,12 @@ const Navbar = ({ user }) => {
       allowedRoles: [Role.Admin, Role.Creator],
       linkId: 'add-game-link',
     },
+    {
+      text: 'Basic user link',
+      path: '/',
+      allowedRoles: [],
+      linkId: 'add-game-link',
+    },
   ];
 
   return (

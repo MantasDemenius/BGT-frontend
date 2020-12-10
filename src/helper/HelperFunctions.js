@@ -7,4 +7,9 @@ export const removeItemFromArrayById = (array, id) => {
   return array;
 };
 
-export const checkAllowedRoles = (userRoles, allowedRoles) => userRoles.split(',').some((r) => allowedRoles.indexOf(r) >= 0);
+export const checkAllowedRoles = (userRoles, allowedRoles) => {
+  if (Array.isArray(allowedRoles) && !allowedRoles.length) {
+    return true;
+  }
+  return userRoles.split(',').some((r) => allowedRoles.indexOf(r) >= 0);
+};
