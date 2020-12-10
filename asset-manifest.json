@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/BGT-frontend/static/js/main.8dd313ae.chunk.js",
-    "main.js.map": "/BGT-frontend/static/js/main.8dd313ae.chunk.js.map",
+    "main.js": "/BGT-frontend/static/js/main.ad1d4403.chunk.js",
+    "main.js.map": "/BGT-frontend/static/js/main.ad1d4403.chunk.js.map",
     "runtime-main.js": "/BGT-frontend/static/js/runtime-main.a9116dc2.js",
     "runtime-main.js.map": "/BGT-frontend/static/js/runtime-main.a9116dc2.js.map",
-    "static/js/2.56ff1ff2.chunk.js": "/BGT-frontend/static/js/2.56ff1ff2.chunk.js",
-    "static/js/2.56ff1ff2.chunk.js.map": "/BGT-frontend/static/js/2.56ff1ff2.chunk.js.map",
+    "static/js/2.53b49bcc.chunk.js": "/BGT-frontend/static/js/2.53b49bcc.chunk.js",
+    "static/js/2.53b49bcc.chunk.js.map": "/BGT-frontend/static/js/2.53b49bcc.chunk.js.map",
     "index.html": "/BGT-frontend/index.html",
-    "static/js/2.56ff1ff2.chunk.js.LICENSE.txt": "/BGT-frontend/static/js/2.56ff1ff2.chunk.js.LICENSE.txt"
+    "static/js/2.53b49bcc.chunk.js.LICENSE.txt": "/BGT-frontend/static/js/2.53b49bcc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a9116dc2.js",
-    "static/js/2.56ff1ff2.chunk.js",
-    "static/js/main.8dd313ae.chunk.js"
+    "static/js/2.53b49bcc.chunk.js",
+    "static/js/main.ad1d4403.chunk.js"
   ]
 }
