@@ -36,6 +36,7 @@ const Navbar = ({ user }) => {
     <>
       <TopNavbar
         user={user}
+        open={mobileOpen}
         handleToggle={handleDrawerToggle}
         links={navbarLinks}
       />

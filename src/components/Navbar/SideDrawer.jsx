@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Drawer, Hidden, List, ListItem, ListItemText, makeStyles, Tooltip,
+  SwipeableDrawer, Hidden, List, ListItem, ListItemText, makeStyles, Tooltip, Toolbar,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import PrivateComponent from '../../helper/PrivateComponent';
@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
       width: drawerWidth,
       flexShrink: 0,
     },
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -64,7 +61,7 @@ const SideDrawer = ({
   return (
     <nav className={classes.drawer}>
       <Hidden smUp implementation="css">
-        <Drawer
+        <SwipeableDrawer
           variant="temporary"
           anchor="left"
           open={open}
@@ -76,6 +73,8 @@ const SideDrawer = ({
             keepMounted: true, // Better open performance on mobile.
           }}
         >
+          <Toolbar style={{ minHeight: '1em' }} />
+          <Toolbar />
           <div>
             <List>
               {links.map((link) => (
@@ -89,7 +88,7 @@ const SideDrawer = ({
               ))}
             </List>
           </div>
-        </Drawer>
+        </SwipeableDrawer>
       </Hidden>
     </nav>
   );
