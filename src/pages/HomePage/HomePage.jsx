@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { getNoTokenRequest, deleteRequest } from '../../helper/ApiRequests';
 import GameDetailDialog from '../../components/GameDetailDialog';
-import removeItemFromArrayById from '../../helper/HelperFunctions';
+import { removeItemFromArrayById } from '../../helper/HelperFunctions';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   loading: {
     display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
+    minHeight: '60vh',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 

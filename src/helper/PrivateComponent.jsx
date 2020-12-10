@@ -1,27 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
 import { checkAllowedRoles } from './HelperFunctions';
 
-const PrivateRoute = ({
+const PrivateComponent = ({
   component: Component, user, allowedRoles, ...rest
 }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      if (!user.loggedIn) {
-        return <Redirect to={{ pathname: '/' }} />;
-      }
-      if (!checkAllowedRoles(user.roles, allowedRoles)) {
-        return <Redirect to={{ pathname: '/' }} />;
-      }
-      return <Component {...props} />;
-    }}
-  />
+  <>
+    {checkAllowedRoles(user.roles, allowedRoles) && (
+    <Component {...rest} />
+    )}
+  </>
 );
 
-PrivateRoute.propTypes = {
+PrivateComponent.propTypes = {
   component: PropTypes.elementType.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string,
@@ -31,4 +23,4 @@ PrivateRoute.propTypes = {
   allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default PrivateRoute;
+export default PrivateComponent;

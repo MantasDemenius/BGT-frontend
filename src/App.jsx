@@ -10,6 +10,11 @@ const useStyles = makeStyles(() => ({
     minHeight: '100vh',
     backgroundColor: '#eaeff1',
   },
+  ul: {
+    margin: 0,
+    padding: 0,
+    listStyle: 'none',
+  },
 }));
 
 const App = () => {

@@ -63,7 +63,7 @@ const LoginForm = () => {
       validationSchema={Yup.object().shape({
         username: Yup.string().required('Username is required'),
         password: Yup.string()
-          .required('No password provided.'),
+          .required('Password is required.'),
       // .min(8, 'Password is too short - should be 8 chars minimum.')
       // .matches(/(?=.*[0-9])/, 'Password must contain a number.'),
       })}
@@ -105,7 +105,7 @@ const LoginForm = () => {
                   disabled
                   type="hidden"
                 />
-                <ErrorMessage component={StyledErrorDiv} name="errors" />
+                <ErrorMessage id="globalError" component={StyledErrorDiv} name="errors" />
                 <TextField
                   type="text"
                   id="username"
@@ -120,7 +120,7 @@ const LoginForm = () => {
                   value={values.username}
                   onChange={handleChange}
                 />
-                <ErrorMessage component={StyledErrorDiv} name="username" />
+                <ErrorMessage id="usernameError" component={StyledErrorDiv} name="username" />
                 <TextField
                   id="password"
                   name="password"
@@ -135,13 +135,14 @@ const LoginForm = () => {
                   value={values.password}
                   onChange={handleChange}
                 />
-                <ErrorMessage component={StyledErrorDiv} name="password" />
+                <ErrorMessage id="passwordError" component={StyledErrorDiv} name="password" />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
                 <StyledSubmitButton
                   type="submit"
+                  name="signin"
                   fullWidth
                   variant="contained"
                   color="primary"

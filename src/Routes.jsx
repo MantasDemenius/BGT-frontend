@@ -5,7 +5,7 @@ import {
 import LoginForm from './pages/LoginPage/LoginForm';
 import RegisterForm from './pages/RegisterPage/RegisterForm';
 import { getUser } from './helper/UserService';
-import NavBar from './components/NavBar';
+import Navbar from './components/Navbar/Navbar';
 import PrivateRoute from './helper/PrivateRoute';
 import UserList from './pages/Admin/UsersPage/UserList';
 import Role from './helper/Role';
@@ -26,7 +26,7 @@ const Routes = () => {
 
   return (
     <BrowserRouter basename="/BGT-frontend">
-      <NavBar user={user} />
+      <Navbar user={user} />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginForm} />
@@ -35,9 +35,9 @@ const Routes = () => {
           path="/games/add"
           component={CreateGame}
           user={user}
-          roles={[Role.Admin, Role.Creator]}
+          allowedRoles={[Role.Admin, Role.Creator]}
         />
-        <PrivateRoute exact path="/users" component={UserList} user={user} roles={[Role.Admin]} />
+        <PrivateRoute exact path="/users" component={UserList} user={user} allowedRoles={[Role.Admin]} />
       </Switch>
       <Footer />
     </BrowserRouter>

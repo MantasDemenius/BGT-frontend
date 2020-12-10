@@ -1,4 +1,4 @@
-const removeItemFromArrayById = (array, id) => {
+export const removeItemFromArrayById = (array, id) => {
   const removeIndex = array.map((obj) => obj.id).indexOf(id);
   if (removeIndex > -1) {
     array.splice(removeIndex, 1);
@@ -7,4 +7,4 @@ const removeItemFromArrayById = (array, id) => {
   return array;
 };
 
-export default removeItemFromArrayById;
+export const checkAllowedRoles = (userRoles, allowedRoles) => userRoles.split(',').some((r) => allowedRoles.indexOf(r) >= 0);

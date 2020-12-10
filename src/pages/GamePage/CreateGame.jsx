@@ -106,7 +106,7 @@ const CreateGame = () => {
                 Create a new board game
               </Typography>
             </div>
-            <Form className={classes.form} onSubmit={handleSubmit}>
+            <Form id="create-game" className={classes.form} onSubmit={handleSubmit}>
               <TextField
                 type="text"
                 id="title"
