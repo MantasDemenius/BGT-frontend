@@ -2,49 +2,34 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SideDrawer from './SideDrawer';
 import TopNavbar from './TopNavbar';
-import Role from '../../helper/Role';
+import PageRoutes from './PageRoutes';
 
 const Navbar = ({ user }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const handleDrawerOpen = () => {
+    setMobileOpen(true);
   };
 
-  const navbarLinks = [
-    {
-      text: 'Add game',
-      path: '/games/add',
-      allowedRoles: [Role.Admin, Role.Creator],
-      linkId: 'add-game-link',
-    },
-    {
-      text: 'Add game1',
-      path: '/games/add',
-      allowedRoles: [Role.Admin, Role.Creator],
-      linkId: 'add-game-link',
-    },
-    {
-      text: 'Basic user link',
-      path: '/',
-      allowedRoles: [],
-      linkId: 'add-game-link',
-    },
-  ];
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+  };
 
   return (
     <>
       <TopNavbar
         user={user}
         open={mobileOpen}
-        handleToggle={handleDrawerToggle}
-        links={navbarLinks}
+        handleOpen={handleDrawerOpen}
+        handleClose={handleDrawerClose}
+        links={PageRoutes}
       />
       <SideDrawer
         user={user}
         open={mobileOpen}
-        handleToggle={handleDrawerToggle}
-        links={navbarLinks}
+        handleOpen={handleDrawerOpen}
+        handleClose={handleDrawerClose}
+        links={PageRoutes}
       />
     </>
   );

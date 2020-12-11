@@ -75,7 +75,7 @@ const logout = () => {
 };
 
 const TopNavbar = ({
-  user, open, handleToggle, links,
+  user, open, handleOpen, handleClose, links,
 }) => {
   const classes = useStyles();
   return (
@@ -96,20 +96,21 @@ const TopNavbar = ({
             color="inherit"
             aria-label="Open drawer"
             edge="start"
-            onClick={handleToggle}
+            onClick={handleOpen}
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
           <IconButton
             color="inherit"
+            aria-label="Close drawer"
             edge="start"
-            onClick={handleToggle}
+            onClick={handleClose}
             className={clsx(classes.closeMenuButton, open && classes.show)}
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle} onClick={handleClose}>
             <Link component={routerLink} to="/" color="inherit" variant="inherit" underline="none">
               BGT
             </Link>
@@ -128,12 +129,25 @@ const TopNavbar = ({
             ))}
           </nav>
           {!user.loggedIn && (
-            <Button component={routerLink} to="/login" color="inherit" variant="outlined" name="login" className={classes.link}>
+            <Button
+              component={routerLink}
+              to="/login"
+              color="inherit"
+              variant="outlined"
+              name="login"
+              className={classes.link}
+              onClick={handleClose}
+            >
               Login
             </Button>
           )}
           {user.loggedIn && (
-            <Button onClick={logout} color="inherit" variant="outlined" className={classes.link}>
+            <Button
+              onClick={() => { logout(); handleClose(); }}
+              color="inherit"
+              variant="outlined"
+              className={classes.link}
+            >
               Logout
             </Button>
           )}
@@ -150,7 +164,8 @@ TopNavbar.propTypes = {
     loggedIn: PropTypes.bool,
   }).isRequired,
   open: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
   links: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string,
     path: PropTypes.string,

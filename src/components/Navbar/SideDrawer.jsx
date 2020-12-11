@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideDrawer = ({
-  user, open, handleToggle, links,
+  user, open, handleOpen, handleClose, links,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -47,7 +47,7 @@ const SideDrawer = ({
     <Tooltip
       open={false}
       title=""
-      onClick={handleToggle}
+      onClick={handleClose}
     >
       <ListItem id={link.linkId} button>
         <ListItemText
@@ -65,7 +65,8 @@ const SideDrawer = ({
           variant="temporary"
           anchor="left"
           open={open}
-          onClose={handleToggle}
+          onOpen={handleOpen}
+          onClose={handleClose}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -101,7 +102,8 @@ SideDrawer.propTypes = {
     loggedIn: PropTypes.bool,
   }).isRequired,
   open: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
   links: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string,
     path: PropTypes.string,

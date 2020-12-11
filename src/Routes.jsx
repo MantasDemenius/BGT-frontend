@@ -11,7 +11,7 @@ import UserList from './pages/Admin/UsersPage/UserList';
 import Role from './helper/Role';
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer';
-import CreateGame from './pages/GamePage/CreateGame';
+import PageRoutes from './components/Navbar/PageRoutes';
 
 const Routes = () => {
   const [user, setUser] = useState({
@@ -31,12 +31,15 @@ const Routes = () => {
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginForm} />
         <Route path="/register" component={RegisterForm} />
-        <PrivateRoute
-          path="/games/add"
-          component={CreateGame}
-          user={user}
-          allowedRoles={[Role.Admin, Role.Creator]}
-        />
+        {PageRoutes.map((route) => (
+          <PrivateRoute
+            key={route.text}
+            path={route.path}
+            component={route.component}
+            user={user}
+            allowedRoles={route.allowedRoles}
+          />
+        ))}
         <PrivateRoute exact path="/users" component={UserList} user={user} allowedRoles={[Role.Admin]} />
       </Switch>
       <Footer />
