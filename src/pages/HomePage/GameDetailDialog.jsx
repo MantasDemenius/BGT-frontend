@@ -79,11 +79,14 @@ const GameDetailDialog = ({ item, handleDeleteGame }) => {
             color="primary"
             onClick={() => history.push(`./games/${item.title}/translate`, { game: item })}
           />
-          {(user.roles.includes('CREATOR') || user.roles.includes('ADMIN')) && (
-          <Button onClick={() => { handleDeleteGame(item.id); handleClose(); }} color="secondary">
-            Delete
-          </Button>
-          )}
+          <PrivateComponent
+            component={Button}
+            user={user}
+            allowedRoles={[Role.Admin]}
+            text="Delete"
+            color="secondary"
+            onClick={() => { handleDeleteGame(item.id); handleClose(); }}
+          />
           <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>

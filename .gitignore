@@ -18,6 +18,7 @@
 .env.test.local
 .env.production.local
 .metals
+debug.log
 
 .eslintcache
 npm-debug.log*
