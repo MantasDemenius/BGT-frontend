@@ -13,3 +13,5 @@ export const checkAllowedRoles = (userRoles, allowedRoles) => {
   }
   return userRoles.split(',').some((r) => allowedRoles.indexOf(r) >= 0);
 };
+
+export const UppercaseFirstLetter = (text) => text.charAt(0).toUpperCase() + text.slice(1);

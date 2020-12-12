@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container, makeStyles, Typography, CssBaseline, TextField,
+  Container, makeStyles, Typography, CssBaseline,
   FormControl, Select, MenuItem,
   Button,
   InputLabel,
@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import { getNoTokenRequest, postRequest, getRequest } from '../../helper/ApiRequests';
 import { getUser } from '../../helper/UserService';
+import FormTextFieldWithError from '../../components/FormTextFieldWithError';
 
 const StyledErrorDiv = styled.div`
     color: red;`;
@@ -31,7 +32,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
+    display: 'inline-block',
+    minWidth: '49%',
     margin: theme.spacing(3, 0, 2),
+    [theme.breakpoints.down('xs')]: {
+      minWidth: '100%',
+      margin: theme.spacing(2, 0, 0),
+    },
+  },
+  buttonGroup: {
+    textAlign: 'center',
   },
   formControl: {
     margin: theme.spacing(1, 0),
@@ -107,40 +117,23 @@ const CreateGame = () => {
               </Typography>
             </div>
             <Form id="create-game" className={classes.form} onSubmit={handleSubmit}>
-              <TextField
-                type="text"
-                id="title"
-                name="title"
-                label="Title"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                placeholder="Enter game title"
-                autoFocus
+              <FormTextFieldWithError
                 value={values.title}
-                onChange={handleChange}
-                inputProps={{ className: classes.textField }}
-                className={classes.textField}
+                change={handleChange}
+                name="title"
+                autoFocus
+                placeholder="Enter game title"
               />
-              <ErrorMessage component={StyledErrorDiv} name="title" />
-              <TextField
-                type="text"
-                id="description"
+              <FormTextFieldWithError
+                value={values.description}
+                change={handleChange}
                 name="description"
-                label="Description"
+                autoFocus={false}
+                placeholder="Enter game description"
                 multiline
                 rows={4}
-                variant="outlined"
                 margin="normal"
-                fullWidth
-                placeholder="Enter game description"
-                className={classes.textField}
-                inputProps={{ className: classes.textField }}
-                value={values.description}
-                onChange={handleChange}
               />
-              <ErrorMessage component={StyledErrorDiv} name="description" />
-              {/* https://material-ui.com/components/autocomplete */}
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="select-language-label">Language</InputLabel>
                 <Select
@@ -159,16 +152,28 @@ const CreateGame = () => {
                 </Select>
               </FormControl>
               <ErrorMessage component={StyledErrorDiv} name="language" />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-                className={classes.submit}
-              >
-                Create
-              </Button>
+              <div>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  style={{ float: 'left' }}
+                  disabled={isSubmitting}
+                  className={classes.submit}
+                >
+                  Create
+                </Button>
+                <Button
+                  type="reset"
+                  variant="contained"
+                  color="secondary"
+                  style={{ float: 'right' }}
+                  onClick={() => history.push('/')}
+                  className={classes.submit}
+                >
+                  Cancel
+                </Button>
+              </div>
             </Form>
           </Container>
         );

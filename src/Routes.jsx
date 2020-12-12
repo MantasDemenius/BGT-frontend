@@ -11,7 +11,8 @@ import UserList from './pages/Admin/UsersPage/UserList';
 import Role from './helper/Role';
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './components/Footer';
-import PageRoutes from './components/Navbar/PageRoutes';
+import CreateGame from './pages/GamePage/CreateGame';
+import TranslateGame from './pages/GamePage/TranslateGame/TranslateGame';
 
 const Routes = () => {
   const [user, setUser] = useState({
@@ -29,18 +30,22 @@ const Routes = () => {
       <Navbar user={user} />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <PrivateRoute
+          path="/games/add"
+          component={CreateGame}
+          user={user}
+          allowedRoles={[Role.Admin]}
+        />
+        <PrivateRoute
+          path="/games/:slug/translate"
+          component={TranslateGame}
+          user={user}
+          allowedRoles={[Role.Admin, Role.Creator]}
+        />
         <Route path="/login" component={LoginForm} />
         <Route path="/register" component={RegisterForm} />
-        {PageRoutes.map((route) => (
-          <PrivateRoute
-            key={route.text}
-            path={route.path}
-            component={route.component}
-            user={user}
-            allowedRoles={route.allowedRoles}
-          />
-        ))}
         <PrivateRoute exact path="/users" component={UserList} user={user} allowedRoles={[Role.Admin]} />
+        {/* <Route component={FourZeroFour} /> NOT FOUND */}
       </Switch>
       <Footer />
     </BrowserRouter>

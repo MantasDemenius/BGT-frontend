@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,14 +7,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import { getUser } from '../helper/UserService';
+import { getUser } from '../../helper/UserService';
+import Role from '../../helper/Role';
+import PrivateComponent from '../../helper/PrivateComponent';
 
 const GameDetailDialog = ({ item, handleDeleteGame }) => {
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const history = useHistory();
   const [user, setUser] = useState({
     name: '',
     roles: '',
@@ -38,12 +38,15 @@ const GameDetailDialog = ({ item, handleDeleteGame }) => {
         Details
       </Button>
       <Dialog
-        fullScreen={fullScreen}
+        fullWidth
+        maxWidth="sm"
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">{item.title}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">
+          {item.title}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Description:
@@ -60,8 +63,22 @@ const GameDetailDialog = ({ item, handleDeleteGame }) => {
             {' '}
             {item.language}
           </DialogContentText>
+          {item.translatedLanguages && (
+          <DialogContentText>
+            Translated languages:&nbsp;
+            {item.translatedLanguages}
+          </DialogContentText>
+          )}
         </DialogContent>
         <DialogActions>
+          <PrivateComponent
+            component={Button}
+            user={user}
+            allowedRoles={[Role.Creator, Role.Admin]}
+            text="Translate"
+            color="primary"
+            onClick={() => history.push(`./games/${item.title}/translate`, { game: item })}
+          />
           {(user.roles.includes('CREATOR') || user.roles.includes('ADMIN')) && (
           <Button onClick={() => { handleDeleteGame(item.id); handleClose(); }} color="secondary">
             Delete
@@ -83,6 +100,7 @@ GameDetailDialog.propTypes = {
     description: PropTypes.string,
     language: PropTypes.string,
     title: PropTypes.string,
+    translatedLanguages: PropTypes.string,
   }).isRequired,
   handleDeleteGame: PropTypes.func.isRequired,
 };
